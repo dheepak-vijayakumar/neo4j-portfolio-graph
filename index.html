@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dheepak's Neo4j Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/neovis.js@2.0.2/dist/neovis.js"></script>
+  <style>
+    body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+    #viz { width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="viz"></div>
+  <script src="config.js"></script>
+  <script>
+    const config = {
+      containerId: "viz",
+      neo4j: {
+        serverUrl: configNeo4j.url,
+        serverUser: configNeo4j.user,
+        serverPassword: configNeo4j.password
+      },
+      labels: {
+        Project: { label: "title" },
+        Skill: { label: "name" },
+        Role: { label: "name" },
+        Certification: { label: "name" },
+        Tool: { label: "name" }
+      },
+      relationships: {
+        USED_IN: { },
+        WORKED_AS: { },
+        LEARNED: { },
+        CERTIFIED: { }
+      },
+      initialCypher: "MATCH (n)-[r]->(m) RETURN n, r, m LIMIT 150"
+    };
+    new NeoVis.default(config).render();
+  </script>
+</body>
+</html>
